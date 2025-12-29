@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Wheel of Names | Pemilih Nama Acak</title>
+    <link rel="icon" href="./img/logo-dark-background-38.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
@@ -27,7 +28,6 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: var(--primary-bg);
             background-image:
                 radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 40%),
                 radial-gradient(circle at left, #1c2d4a 0%, #0e0e0e 45%, #3a1212 100%);
@@ -45,7 +45,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 1rem 2rem;
-            background: var(--glass);
+            background: var(--primary-bg);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             z-index: 100;
@@ -136,34 +136,29 @@
 
         /* ===== MAIN LAYOUT ===== */
         .main-container {
-            flex: 1;
-            display: grid;
-            grid-template-columns: 1fr 350px;
-            gap: 20px;
-            padding: 20px;
-            max-width: 1600px;
-            margin: 0 auto;
-            width: 100%;
-            align-items: center;
-            transition: all 0.5s ease;
-        }
+    flex: 1;
+    display: flex;
+    justify-content: center; /* Roda akan selalu di tengah secara horizontal */
+    align-items: center;
+    position: relative; /* Penting untuk posisi panel */
+    width: 100%;
+    overflow: hidden;
+}
 
         /* ===== WHEEL SECTION ===== */
-        .wheel-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            width: 100%;
-            margin: 0 auto;
-        }
+       .wheel-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
 
         .wheel-wrapper {
             position: relative;
             width: 85vh;
             height: 85vh;
-            left: 5vh;
+            right: 0;
             max-width: 650px;
             max-height: 650px;
             filter: drop-shadow(0 0 50px rgba(0, 0, 0, 0.6));
@@ -213,15 +208,20 @@
 
         /* ===== PANEL KANAN ===== */
         .panel {
-            background: var(--primary-bg);
-            border-radius: 20px;
-            padding: 1rem;
-            box-shadow: var(--shadow);
-            display: flex;
-            flex-direction: column;
-            height: 85vh;
-            max-height: 700px;
-        }
+    position: absolute;
+    right: 5px; /* Jarak dari sisi kanan */
+    width: 350px;
+    background: var(--secondary-bg);
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    height: 85vh;
+    max-height: 700px;
+    z-index: 20;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s;
+}
 
         .tabs {
             display: flex;
@@ -257,13 +257,10 @@
         }
 
         .panel-hidden {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-            width: 0;
-            padding: 0;
-            margin: 0;
-        }
+    transform: translateX(400px); /* Geser ke kanan sejauh lebarnya */
+    opacity: 0;
+    pointer-events: none;
+}
 
         /* Gaya untuk Switch Toggle */
         .switch {
@@ -454,26 +451,63 @@
             }
         }
 
-        @media (max-width: 900px) {
-            .main-container {
-                grid-template-columns: 1fr;
-                overflow-y: auto;
-            }
+        /* ===== RESPONSIVE FIX ===== */
+@media (max-width: 900px) {
+    body {
+        overflow-y: auto; /* Izinkan scroll di HP */
+    }
 
-            .wheel-wrapper {
-                width: 320px;
-                height: 320px;
-            }
+    .main-container {
+        flex-direction: column; /* Susun ke bawah di HP */
+        justify-content: flex-start;
+        padding: 10px;
+        min-height: auto;
+    }
 
-            .info-container {
-                position: relative;
-                top: 0;
-                left: 0;
-                padding: 20px;
-                align-items: center;
-                max-width: 100%;
-            }
-        }
+    .info-container {
+        position: relative;
+        top: 0; left: 0;
+        max-width: 100%;
+        text-align: center;
+        padding: 20px;
+        align-items: center;
+    }
+
+    .wheel-wrapper {
+        width: 90vw; /* Roda menyesuaikan lebar layar HP */
+        height: 90vw;
+        max-width: 400px;
+        max-height: 400px;
+    }
+
+    .panel {
+        position: relative; /* Di HP, panel tidak melayang tapi di bawah roda */
+        right: auto;
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+        max-height: none;
+        margin-top: 30px;
+        transform: none !important; /* Jangan biarkan panel hilang ke samping di HP */
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    /* Sembunyikan tombol "Menyembunyikan" di HP karena tidak diperlukan */
+    .hide-panel-btn {
+        display: none;
+    }
+
+    canvas {
+        border-width: 5px; /* Perkecil border roda di HP */
+    }
+
+    .center-btn {
+        width: 80px;
+        height: 80px;
+        font-size: 1rem;
+    }
+}
     </style>
 </head>
 
@@ -571,12 +605,12 @@
         const ctx = canvas.getContext("2d");
         const r = canvas.width / 2;
 
-        let names = ["Apple", "Samsung", "Google", "Microsoft", "Amazon", "Tesla", "Meta", "Netflix"];
+        let names = ["Max", "George", "Lando", "Oscar"];
         let results = [];
         let angle = 0;
         let spinning = false;
         let isIdle = true; // Status untuk rotasi lambat
-        let idleRotation = 0.003;
+        let idleRotation = 0.004;
         let currentWinner = "";
         // Deklarasi Audio
         const drumSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3'); // Suara Ticking/Drum
@@ -618,7 +652,7 @@
                 ctx.rotate(startAngle + slice / 2);
                 ctx.fillStyle = "#fff";
                 ctx.textAlign = "right";
-                ctx.font = "bold 24px Montserrat";
+                ctx.font = "bold 54px Montserrat";
                 ctx.fillText(name, r - 50, 10);
                 ctx.restore();
             });
@@ -793,21 +827,19 @@
         animateLoop();
 
         function togglePanel() {
-            const panel = document.querySelector('.panel');
-            const container = document.querySelector('.main-container');
-            const icon = document.getElementById('hide-icon');
+    const panel = document.querySelector('.panel');
+    const icon = document.getElementById('hide-icon');
 
-            // Toggle class tersembunyi
-            panel.classList.toggle('panel-hidden');
-            container.classList.toggle('full-width');
+    // Toggle class tersembunyi
+    panel.classList.toggle('panel-hidden');
 
-            // Ubah teks ikon (opsional)
-            if (panel.classList.contains('panel-hidden')) {
-                icon.innerText = "▣"; // Ikon saat tersembunyi
-            } else {
-                icon.innerText = "▢"; // Ikon saat terlihat
-            }
-        }
+    if (panel.classList.contains('panel-hidden')) {
+        icon.innerText = "▣"; 
+        // Roda tidak akan bergeser karena panel tidak lagi memakan ruang grid
+    } else {
+        icon.innerText = "▢"; 
+    }
+}
     </script>
     <div id="toast-container"></div>
 </body>
