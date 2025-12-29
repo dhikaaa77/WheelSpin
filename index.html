@@ -136,23 +136,25 @@
 
         /* ===== MAIN LAYOUT ===== */
         .main-container {
-    flex: 1;
-    display: flex;
-    justify-content: center; /* Roda akan selalu di tengah secara horizontal */
-    align-items: center;
-    position: relative; /* Penting untuk posisi panel */
-    width: 100%;
-    overflow: hidden;
-}
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            /* Roda akan selalu di tengah secara horizontal */
+            align-items: center;
+            position: relative;
+            /* Penting untuk posisi panel */
+            width: 100%;
+            overflow: hidden;
+        }
 
         /* ===== WHEEL SECTION ===== */
-       .wheel-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-}
+        .wheel-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
 
         .wheel-wrapper {
             position: relative;
@@ -208,20 +210,21 @@
 
         /* ===== PANEL KANAN ===== */
         .panel {
-    position: absolute;
-    right: 5px; /* Jarak dari sisi kanan */
-    width: 350px;
-    background: var(--secondary-bg);
-    border-radius: 20px;
-    padding: 1.5rem;
-    box-shadow: var(--shadow);
-    display: flex;
-    flex-direction: column;
-    height: 85vh;
-    max-height: 700px;
-    z-index: 20;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s;
-}
+            position: absolute;
+            right: 5px;
+            /* Jarak dari sisi kanan */
+            width: 350px;
+            background: var(--secondary-bg);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            height: 85vh;
+            max-height: 700px;
+            z-index: 20;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s;
+        }
 
         .tabs {
             display: flex;
@@ -257,10 +260,11 @@
         }
 
         .panel-hidden {
-    transform: translateX(400px); /* Geser ke kanan sejauh lebarnya */
-    opacity: 0;
-    pointer-events: none;
-}
+            transform: translateX(400px);
+            /* Geser ke kanan sejauh lebarnya */
+            opacity: 0;
+            pointer-events: none;
+        }
 
         /* Gaya untuk Switch Toggle */
         .switch {
@@ -452,62 +456,69 @@
         }
 
         /* ===== RESPONSIVE FIX ===== */
-@media (max-width: 900px) {
-    body {
-        overflow-y: auto; /* Izinkan scroll di HP */
-    }
+        @media (max-width: 900px) {
+            body {
+                overflow-y: auto;
+                /* Izinkan scroll di HP */
+            }
 
-    .main-container {
-        flex-direction: column; /* Susun ke bawah di HP */
-        justify-content: flex-start;
-        padding: 10px;
-        min-height: auto;
-    }
+            .main-container {
+                flex-direction: column;
+                /* Susun ke bawah di HP */
+                justify-content: flex-start;
+                padding: 10px;
+                min-height: auto;
+            }
 
-    .info-container {
-        position: relative;
-        top: 0; left: 0;
-        max-width: 100%;
-        text-align: center;
-        padding: 20px;
-        align-items: center;
-    }
+            .info-container {
+                position: relative;
+                top: 0;
+                left: 0;
+                max-width: 100%;
+                text-align: center;
+                padding: 20px;
+                align-items: center;
+            }
 
-    .wheel-wrapper {
-        width: 90vw; /* Roda menyesuaikan lebar layar HP */
-        height: 90vw;
-        max-width: 400px;
-        max-height: 400px;
-    }
+            .wheel-wrapper {
+                width: 90vw;
+                /* Roda menyesuaikan lebar layar HP */
+                height: 90vw;
+                max-width: 400px;
+                max-height: 400px;
+            }
 
-    .panel {
-        position: relative; /* Di HP, panel tidak melayang tapi di bawah roda */
-        right: auto;
-        width: 100%;
-        max-width: 500px;
-        height: auto;
-        max-height: none;
-        margin-top: 30px;
-        transform: none !important; /* Jangan biarkan panel hilang ke samping di HP */
-        opacity: 1 !important;
-        visibility: visible !important;
-    }
+            .panel {
+                position: relative;
+                /* Di HP, panel tidak melayang tapi di bawah roda */
+                right: auto;
+                width: 100%;
+                max-width: 500px;
+                height: auto;
+                max-height: none;
+                margin-top: 30px;
+                transform: none !important;
+                /* Jangan biarkan panel hilang ke samping di HP */
+                opacity: 1 !important;
+                visibility: visible !important;
+            }
 
-    /* Sembunyikan tombol "Menyembunyikan" di HP karena tidak diperlukan */
-    .hide-panel-btn {
-        display: none;
-    }
+            /* Sembunyikan tombol "Menyembunyikan" di HP karena tidak diperlukan */
+            .hide-panel-btn {
+                display: none;
+            }
 
-    canvas {
-        border-width: 5px; /* Perkecil border roda di HP */
-    }
+            canvas {
+                border-width: 5px;
+                /* Perkecil border roda di HP */
+            }
 
-    .center-btn {
-        width: 80px;
-        height: 80px;
-        font-size: 1rem;
-    }
-}
+            .center-btn {
+                width: 80px;
+                height: 80px;
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 
@@ -827,19 +838,19 @@
         animateLoop();
 
         function togglePanel() {
-    const panel = document.querySelector('.panel');
-    const icon = document.getElementById('hide-icon');
+            const panel = document.querySelector('.panel');
+            const icon = document.getElementById('hide-icon');
 
-    // Toggle class tersembunyi
-    panel.classList.toggle('panel-hidden');
+            // Toggle class tersembunyi
+            panel.classList.toggle('panel-hidden');
 
-    if (panel.classList.contains('panel-hidden')) {
-        icon.innerText = "▣"; 
-        // Roda tidak akan bergeser karena panel tidak lagi memakan ruang grid
-    } else {
-        icon.innerText = "▢"; 
-    }
-}
+            if (panel.classList.contains('panel-hidden')) {
+                icon.innerText = "▣";
+                // Roda tidak akan bergeser karena panel tidak lagi memakan ruang grid
+            } else {
+                icon.innerText = "▢";
+            }
+        }
     </script>
     <div id="toast-container"></div>
 </body>
