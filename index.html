@@ -70,11 +70,12 @@
             gap: 10px;
             font-size: 0.9rem;
             font-weight: 600;
-            transition: 0.3s;
+            transition: 0.2s;
+            padding: 8px 15px;
         }
 
         .hide-panel-btn:hover {
-            color: var(--accent);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         /* Class untuk menyembunyikan panel */
@@ -85,6 +86,156 @@
         /* Mengatur agar area wheel melebar saat panel disembunyikan */
         .full-width {
             grid-template-columns: 1fr !important;
+        }
+
+        .nav-btn-secondary {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+
+        .nav-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-btn-custom {
+            background: var(--primary-bg);
+            /* Putih keabu-abuan seperti di gambar */
+            border: none;
+            color: var(--text-main);
+            padding: 8px 15px;
+            border-radius: 4px;
+            /* Sudut agak kotak tapi lembut */
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            transition: 0.2s;
+        }
+
+        .nav-btn-custom:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Penengah Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .settings-box {
+            background: #181818;
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            /* Lebar maksimal box */
+            text-align: center;
+            /* Menengahkan semua teks */
+            color: white;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .settings-box h3 {
+            margin-bottom: 5px;
+            font-size: 1.5rem;
+        }
+
+        .subtitle {
+            color: #ccc;
+            font-size: 1rem;
+            margin-bottom: 30px;
+        }
+
+        /* Wrapper Slider agar Memanjang */
+        .slider-wrapper {
+            width: 100%;
+            margin-bottom: 30px;
+            padding: 0 10px;
+        }
+
+        #durationSlider {
+            width: 100%;
+            /* Memanjang ke kanan */
+            height: 6px;
+            background: #444;
+            border-radius: 5px;
+            outline: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+
+        /* Titik Slider (Thumb) */
+        #durationSlider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #ffcc00;
+            /* Warna kuning sesuai gambar */
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.6);
+        }
+
+        /* Gaya Label Angka di Bawah Slider */
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            color: #888;
+            font-size: 0.85rem;
+            padding: 0 5px;
+        }
+
+        /* Tampilan 10 detik di Tengah */
+        .time-display-container {
+            margin-bottom: 30px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        #displayTime {
+            color: #ffcc00;
+            /* Angka warna kuning */
+        }
+
+        .unit {
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* Tombol Tutup Kuning */
+        .close-settings {
+            width: 100%;
+            padding: 15px;
+            background: #ffcc00;
+            border: none;
+            color: #000;
+            font-weight: bold;
+            font-size: 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-settings:hover {
+            background: #e6b800;
+            transform: translateY(-2px);
         }
 
         /* ===== INFO AREA ===== */
@@ -164,6 +315,18 @@
             max-width: 500px;
             max-height: 500px;
             filter: drop-shadow(0 0 50px rgba(0, 0, 0, 0.6));
+        }
+
+        #overlay-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+            pointer-events: none;
+            /* Agar klik tembus ke tombol SPIN */
+            z-index: 55;
+            /* Di atas roda (z-0) & pointer (z-50), di bawah tombol tengah (z-60) */
         }
 
         canvas {
@@ -278,6 +441,23 @@
             opacity: 0;
             width: 0;
             height: 0;
+        }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            background: #444;
+            height: 6px;
+            border-radius: 5px;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 18px;
+            width: 18px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--accent);
         }
 
         .slider {
@@ -527,10 +707,41 @@
 
     <nav class="navbar">
         <div class="logo">Wheel of Names</div>
-        <button class="hide-panel-btn" onclick="togglePanel()">
-            <span id="hide-icon">▢</span> Menyembunyikan
-        </button>
+        <div style="display: flex; gap: 15px; align-items: center;">
+            <button class="nav-btn-secondary" onclick="confirmReset()">📄 Baru</button>
+            <button class="nav-btn-custom" onclick="toggleSettings()">🎨 Sesuaikan</button>
+            <button class="hide-panel-btn" onclick="togglePanel()">
+                <span id="hide-icon">▢</span> Menyembunyikan
+            </button>
     </nav>
+
+    <div id="settingsModal" class="modal-overlay" style="display: none;">
+        <div class="settings-box">
+            <h3>Pengaturan Putaran</h3>
+            <p class="subtitle">Spin time (seconds)</p>
+
+            <div class="slider-wrapper">
+                <input type="range" id="durationSlider" min="1" max="60" value="10"
+                    oninput="document.getElementById('displayTime').innerText = this.value">
+
+                <div class="slider-labels">
+                    <span>1</span>
+                    <span>10</span>
+                    <span>20</span>
+                    <span>30</span>
+                    <span>40</span>
+                    <span>50</span>
+                    <span>60</span>
+                </div>
+            </div>
+
+            <div class="time-display-container">
+                <span id="displayTime">10</span> <span class="unit">detik</span>
+            </div>
+
+            <button class="close-settings" onclick="toggleSettings()">Tutup</button>
+        </div>
+    </div>
 
     <div class="info-container">
         <h1 id="displayTitle">Wheel of Names</h1>
@@ -641,33 +852,32 @@
 
         function drawWheel() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            if (!names.length) {
-                ctx.fillStyle = "#fff";
-                ctx.textAlign = "center";
-                ctx.fillText("Masukkan Nama", r, r);
-                return;
-            }
+            if (names.length === 0) return;
+
             const slice = 2 * Math.PI / names.length;
+            const colors = ['#e03131', '#2f9e44', '#1971c2', '#f08c00', '#9c36b5', '#0b7285'];
 
             names.forEach((name, i) => {
-                const startAngle = angle + i * slice;
+                const startAngle = i * slice + angle;
                 ctx.beginPath();
+                ctx.fillStyle = colors[i % colors.length];
                 ctx.moveTo(r, r);
-                ctx.arc(r, r, r - 10, startAngle, startAngle + slice);
-                ctx.fillStyle = `hsl(${i * 360 / names.length}, 70%, 50%)`;
+                ctx.arc(r, r, r, startAngle, startAngle + slice);
                 ctx.fill();
-                ctx.strokeStyle = "rgba(255,255,255,0.2)";
-                ctx.stroke();
 
+                // Menggambar Nama
                 ctx.save();
                 ctx.translate(r, r);
                 ctx.rotate(startAngle + slice / 2);
-                ctx.fillStyle = "#fff";
+                ctx.fillStyle = "white";
+                ctx.font = "bold 48px Montserrat, Arial";
                 ctx.textAlign = "right";
-                ctx.font = "bold 54px Montserrat";
-                ctx.fillText(name, r - 50, 10);
+                ctx.fillText(name, r - 40, 10);
                 ctx.restore();
             });
+
+            // PANGGIL TEKS MELINGKAR DI SINI
+            drawInstructionText(ctx, r);
         }
 
         function animateLoop() {
@@ -678,30 +888,49 @@
             requestAnimationFrame(animateLoop);
         }
 
+        // Fungsi Buka Tutup Modal
+        function toggleSettings() {
+            const modal = document.getElementById('settingsModal');
+            modal.style.display = modal.style.display === 'none' ? 'flex' : 'none';
+        }
+
+        // FUNGSI SPIN BARU (Presisi Detik)
         function spin() {
             if (spinning || !names.length) return;
 
             spinning = true;
-            isIdle = false; // Berhenti idle saat mulai spin
+            isIdle = false;
+            drumSound.currentTime = 0;
+            drumSound.play().catch(e => { });
 
-            // MULAI PUTAR SUARA DRUM
-            drumSound.currentTime = 0; // Mengulang dari awal jika sebelumnya sudah pernah diputar
-            drumSound.play().catch(e => console.log("Audio play blocked"));;
+            // 1. Ambil durasi dari slider (contoh: 10 detik)
+            const durationLimit = parseInt(document.getElementById("durationSlider").value) * 1000;
+            const startTime = performance.now();
 
-            let speed = Math.random() * 0.3 + 0.4; // Kecepatan awal acak
+            // 2. Tentukan berapa banyak putaran (minimal 10 putaran + acak)
+            const startAngle = angle;
+            const totalRotation = (Math.PI * 2 * 10) + (Math.random() * Math.PI * 2);
 
-            function runSpin() {
-                angle += speed;
-                speed *= 0.985; // Deselerasi perlahan
+            function animate(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / durationLimit, 1);
+
+                // 3. Easing Function (Cubic Ease Out) agar melambat dengan halus di akhir
+                // Rumus: 1 - (1 - progress)^3
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+
+                angle = startAngle + (totalRotation * easeOut);
                 drawWheel();
 
-                if (speed > 0.001) {
-                    requestAnimationFrame(runSpin);
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
                 } else {
+                    // BERHENTI TEPAT SAAT PROGRESS = 1 (Durasi tercapai)
                     finishSpin();
                 }
             }
-            runSpin();
+
+            requestAnimationFrame(animate);
         }
 
         function finishSpin() {
@@ -779,6 +1008,7 @@
 
                 // MUNCULKAN TOAST SEPERTI DI GAMBAR
                 showToast(`${currentWinner} terhapus`);
+                saveToLocalStorage();
             }
 
             // Tutup modal
@@ -851,6 +1081,147 @@
             } else {
                 icon.innerText = "▢";
             }
+        }
+
+        // Fungsi untuk menyimpan nama ke browser
+        function saveToLocalStorage() {
+            const text = document.getElementById("inputNames").value;
+            localStorage.setItem("wheelNames", text);
+        }
+
+        // Fungsi untuk memuat nama saat halaman dibuka
+        function loadFromLocalStorage() {
+            const savedNames = localStorage.getItem("wheelNames");
+            if (savedNames) {
+                document.getElementById("inputNames").value = savedNames;
+                // Pemicu update manual agar roda langsung terisi
+                updateNames();
+            }
+        }
+
+        // Tambahkan Event Listener pada textarea agar setiap ngetik langsung simpan
+        document.getElementById("inputNames").addEventListener("input", saveToLocalStorage);
+
+        // Panggil fungsi muat saat window pertama kali terbuka
+        window.onload = () => {
+            loadFromLocalStorage();
+        };
+
+        // 1. Fungsi Simpan Otomatis
+        function saveState() {
+            localStorage.setItem("wheel_names", JSON.stringify(names));
+            localStorage.setItem("wheel_input_text", document.getElementById("inputNames").value);
+        }
+
+        // 2. Fungsi Muat Data saat Refresh (Update bagian window.onload)
+        window.onload = () => {
+            const savedText = localStorage.getItem("wheel_input_text");
+            if (savedText) {
+                document.getElementById("inputNames").value = savedText;
+                // Jalankan updateNames untuk mengisi array 'names' dan menggambar roda
+                updateNames();
+            }
+        };
+
+        // 3. Modifikasi fungsi updateNames() agar selalu menyimpan data
+        function updateNames() {
+            const text = document.getElementById("inputNames").value;
+            names = text.split("\n").filter(name => name.trim() !== "");
+            drawWheel();
+            saveState(); // Simpan setiap kali nama berubah
+        }
+
+        // 4. Fungsi Reset (Tombol Baru)
+        function confirmReset() {
+            const tanya = confirm("Apakah Anda ingin membuat daftar baru? Semua nama saat ini akan dihapus.");
+            if (tanya) {
+                // Reset ke daftar kosong atau default
+                document.getElementById("inputNames").value = "Max\nGeorge\nLando\nOscar";
+                names = [];
+                results = []; // Kosongkan riwayat juga jika perlu
+
+                // Bersihkan Storage
+                localStorage.removeItem("wheel_names");
+                localStorage.removeItem("wheel_input_text");
+
+                // Update tampilan
+                updateNames();
+                updateResultsUI();
+                showToast("Daftar telah direset");
+            }
+        }
+
+        // --- BAGIAN BARU: TEKS MELINGKAR ---
+
+        function drawInstructionText(ctx, radius) {
+            // JANGAN menggambar jika sedang berputar
+            if (spinning) return;
+
+            const textTop = "Klik untuk memutar";
+            const textBottom = "atau tekan ctrl+enter";
+
+            ctx.save();
+            ctx.translate(radius, radius); // Pindah ke titik tengah roda
+            ctx.fillStyle = "white";
+            // Gunakan font yang sangat tebal (900) agar mirip referensi
+            ctx.font = "900 38px Montserrat, Arial, sans-serif";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+
+            // Tambahkan Outline (Garis Tepi) dan Shadow agar teks 'pop' seperti di referensi
+            ctx.strokeStyle = 'rgba(0,0,0,0.8)';
+            ctx.lineWidth = 4; // Ketebalan outline
+            ctx.shadowColor = "rgba(0,0,0,1)";
+            ctx.shadowBlur = 5;
+
+            // Jarak teks dari pusat, disesuaikan agar tidak terlalu ke tengah
+            const dist = radius * 0.65;
+
+            // --- Fungsi Helper Internal untuk Menggambar Lengkungan ---
+            function drawCurvedPhrase(phrase, startAngle, isBottom) {
+                ctx.save();
+                ctx.rotate(startAngle);
+
+                let totalArcWidth = 0;
+                for (let i = 0; i < phrase.length; i++) {
+                    totalArcWidth += ctx.measureText(phrase[i]).width;
+                }
+
+                const spacingFactor = 1.05;
+                const totalArcAngle = (totalArcWidth * spacingFactor) / dist;
+
+                // Jika di bawah, kita balikkan urutan gambarnya agar teks mengalir dari kiri ke kanan
+                ctx.rotate(isBottom ? totalArcAngle / 2 : -totalArcAngle / 2);
+
+                for (let i = 0; i < phrase.length; i++) {
+                    const char = phrase[i];
+                    const charWidth = ctx.measureText(char).width * spacingFactor;
+                    const charAngle = charWidth / dist;
+
+                    ctx.save();
+                    // Untuk teks bawah, kita putar ke arah berlawanan agar tetap melengkung tapi tidak terbalik
+                    ctx.rotate(isBottom ? -charAngle / 2 : charAngle / 2);
+                    ctx.translate(0, isBottom ? dist : -dist);
+
+                    // KUNCINYA: Jangan gunakan ctx.rotate(Math.PI) untuk isBottom
+
+                    ctx.strokeText(char, 0, 0);
+                    ctx.fillText(char, 0, 0);
+
+                    ctx.restore();
+                    ctx.rotate(isBottom ? -charAngle : charAngle);
+                }
+                ctx.restore();
+            }
+            // --- Panggil Fungsi Helper ---
+
+            // Gambar Teks Atas (Berpusat di sudut -90 derajat / jam 12)
+            drawCurvedPhrase(textTop, Math.PI / 100, false);
+
+            // Gambar Teks Bawah (Berpusat di sudut +90 derajat / jam 6)
+            drawCurvedPhrase(textBottom, Math.PI / 100, true);
+
+            ctx.restore();
         }
     </script>
     <div id="toast-container"></div>
