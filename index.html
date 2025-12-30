@@ -10,15 +10,16 @@
 
     <style>
         :root {
-            --primary-bg: #0f172a;
-            --secondary-bg: #1e293b;
-            --accent: #f1c40f;
-            --danger: #e74c3c;
-            --text-main: #f8fafc;
-            --text-dim: #94a3b8;
-            --glass: rgba(255, 255, 255, 0.05);
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
+    --primary-bg: #f8fafc;        /* sebelumnya gelap */
+    --secondary-bg: #e5e7eb;      /* sebelumnya gelap */
+    --accent: #f1c40f;
+    --danger: #e74c3c;
+    --text-main: #0f172a;         /* teks gelap */
+    --text-dim: #64748b;
+    --glass: rgba(0, 0, 0, 0.04);
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
 
         * {
             box-sizing: border-box;
@@ -26,57 +27,58 @@
         }
 
         body {
-            margin: 0;
-            padding: 0;
-            background-image:
-                radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at left, #1c2d4a 0%, #0e0e0e 45%, #3a1212 100%);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
+    margin: 0;
+    padding: 0;
+    background-image:
+        radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.25) 0%, transparent 60%),
+        radial-gradient(circle at right, rgba(239, 68, 68, 0.25) 0%, transparent 65%),
+        linear-gradient(120deg, #f1f5ff 0%, #ffffff 55%, #fff1f1 100%);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
 
         /* ===== NAVBAR ===== */
         .navbar {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            background: var(--primary-bg);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            z-index: 100;
-        }
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: var(--primary-bg);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    z-index: 100;
+}
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
 
         /* Gaya Tombol di Navbar */
         .hide-panel-btn {
-            background: transparent;
-            border: none;
-            color: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: 0.2s;
-            padding: 8px 15px;
-        }
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: 0.2s;
+    padding: 8px 15px;
+}
 
-        .hide-panel-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
+.hide-panel-btn:hover {
+    background: rgba(0, 0, 0, 0.15);
+}
 
         /* Class untuk menyembunyikan panel */
         .panel-hidden {
@@ -91,7 +93,7 @@
         .nav-btn-secondary {
             background: transparent;
             border: none;
-            color: white;
+            color: var(--text-main);
             padding: 8px 15px;
             border-radius: 4px;
             font-weight: 600;
@@ -104,7 +106,7 @@
         }
 
         .nav-btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.15);
         }
 
         .nav-btn-custom {
@@ -125,7 +127,7 @@
         }
 
         .nav-btn-custom:hover {
-            background: rgba(255, 255, 255, 0.1);
+           background: rgba(0, 0, 0, 0.15);
         }
 
         /* Penengah Modal */
@@ -158,7 +160,7 @@
         }
 
         .subtitle {
-            color: #ccc;
+            color: var(--text-dim);
             font-size: 1rem;
             margin-bottom: 30px;
         }
@@ -254,7 +256,7 @@
             margin: 0;
             font-size: 1.8rem;
             font-weight: 700;
-            color: white;
+            color: var(--text-main);
         }
 
         #displayDesc {
@@ -412,7 +414,7 @@
 
         .tabs button.active {
             background: var(--secondary-bg);
-            color: var(--accent);
+            color: var(--text-main);
         }
 
         /* Class saat panel disembunyikan */
@@ -496,7 +498,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             padding: 15px;
-            color: white;
+            color: var(--text-main);
             resize: none;
             outline: none;
             margin-top: 10px;
@@ -522,7 +524,7 @@
         }
 
         .btn-small:hover {
-            background: var(--text-main);
+            background: var(--accent);
             color: black;
         }
 
