@@ -49,19 +49,47 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 2rem;
+            padding: 5px 20px;
             background: var(--primary-bg);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(0, 0, 0, 0.08);
             z-index: 100;
         }
 
+        .navbar::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -1px;
+            width: 100%;
+            height: 4px;
+
+            background: linear-gradient(
+                90deg,
+                rgba(59,130,246,0.9),
+                rgba(168,85,247,0.9),
+                rgba(239,68,68,0.9)
+            );
+
+            box-shadow:
+                0 0 10px rgba(59,130,246,0.4),
+                0 0 14px rgba(239,68,68,0.4);
+            }
+
+
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-main);
+            text-transform: lowercase;
+            letter-spacing: 1px;
+        }
+
+        .logo img {
+            height: 35px;
+            width: 35px;
+            margin-right: 5px;
+            vertical-align: middle;
         }
 
         /* Gaya Tombol di Navbar */
@@ -114,7 +142,7 @@
         }
 
         .nav-btn-custom {
-            background: var(--primary-bg);
+            background: transparent;
             /* Putih keabu-abuan seperti di gambar */
             border: none;
             color: var(--text-main);
@@ -282,7 +310,6 @@
             justify-content: center;
             font-size: 1.2rem;
             transition: 0.3s;
-            margin-top: 10px;
         }
 
         .edit-btn:hover {
@@ -690,11 +717,6 @@
                 visibility: visible !important;
             }
 
-            /* Sembunyikan tombol "Menyembunyikan" di HP karena tidak diperlukan */
-            .hide-panel-btn {
-                display: none;
-            }
-
             canvas {
                 border-width: 5px;
                 /* Perkecil border roda di HP */
@@ -783,14 +805,82 @@
         body[data-theme="dark"] .nav-btn-custom:hover {
             background: rgba(255, 255, 255, 0.08);
         }
+
+        body[data-theme="dark"] .navbar {
+            background: #212121;
+        }
+
+        /* ========================= */
+        /* MOBILE / RESPONSIVE NAVBAR */
+        /* ========================= */
+        /* default desktop */
+        .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 16px;
+        position: relative;
+        }
+
+        .navbar-right {
+        display: flex;
+        gap: 12px;
+        }
+
+        /* hamburger default */
+        .hamburger {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 26px;
+        cursor: pointer;
+        color: inherit;
+        }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+
+        /* tampilkan hamburger */
+        .hamburger {
+            display: block;
+        }
+
+        /* SEMBUNYIKAN MENU TOTAL */
+        .navbar-right {
+            display: none;              /* ← INI WAJIB */
+            position: absolute;
+            top: 100%;
+            right: 12px;
+
+            flex-direction: column;
+            width: 220px;
+            padding: 14px;
+
+            background: #0b1020;
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0,0,0,.4);
+
+            z-index: 999;
+        }
+
+        /* SAAT AKTIF */
+        .navbar-right.show {
+            display: flex;
+        }
+        }
+
+
+
     </style>
 </head>
 
 <body>
 
     <nav class="navbar">
-        <div class="logo">Wheel of Names</div>
-        <div style="display: flex; gap: 15px; align-items: center;">
+        <div class="logo"> <img src="/img/logo-dark-background-38.png" alt="">
+            WheelofNames.com
+        </div>
+        <div class="navbar-right" style="gap: 15px; align-items: center;" id="navMenu">
             <button class="nav-btn-secondary" onclick="confirmReset()">📄 Baru</button>
             <button class="nav-btn-custom" onclick="toggleSettings()">🎨 Sesuaikan</button>
             <button class="hide-panel-btn" onclick="togglePanel()">
@@ -805,6 +895,10 @@
                     <span class="ball"></span>
                 </label>
             </div>
+        </div>
+        <button class="hamburger" id="hamburgerBtn">
+        ☰
+        </button>
     </nav>
 
     <div id="settingsModal" class="modal-overlay" style="display: none;">
@@ -836,8 +930,8 @@
     </div>
 
     <div class="info-container">
-        <h1 id="displayTitle">Wheel of Names</h1>
-        <p id="displayDesc">Putar dan temukan keberuntunganmu!</p>
+        <h1 id="displayTitle"></h1>
+        <p id="displayDesc"></p>
         <button class="edit-btn" onclick="openEditModal()">✎</button>
     </div>
 
@@ -1332,6 +1426,17 @@
             localStorage.setItem("theme", theme);
         });
 
+        const hamburger = document.getElementById("hamburgerBtn");
+        const navMenu = document.getElementById("navMenu");
+
+        hamburger.addEventListener("click", function (e) {
+        e.stopPropagation();
+        navMenu.classList.toggle("show");
+        });
+
+        document.addEventListener("click", function () {
+        navMenu.classList.remove("show");
+        });
     </script>
     <div id="toast-container"></div>
 </body>
