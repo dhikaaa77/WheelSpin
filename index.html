@@ -702,6 +702,68 @@
                 font-size: 1rem;
             }
         }
+
+        /* ===== THEME TOGGLE ===== */
+            .theme-toggle {
+            position: relative;
+            margin-left: 16px;
+            }
+
+            .theme-toggle input {
+            display: none;
+            }
+
+            .theme-toggle label {
+            width: 54px;
+            height: 28px;
+            background: #e5e7eb;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 4px;
+            cursor: pointer;
+            position: relative;
+            }
+
+            .theme-toggle .sun,
+            .theme-toggle .moon {
+            font-size: 14px;
+            z-index: 2;
+            }
+
+            .theme-toggle .ball {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.25s ease;
+            }
+
+            /* Checked = Dark */
+            .theme-toggle input:checked + label .ball {
+            transform: translateX(26px);
+            }
+
+            /* ========================= */
+            /* DARK MODE OVERRIDE ONLY */
+            /* ========================= */
+            body[data-theme="dark"] {
+                --primary-bg: #020617;
+                --secondary-bg: #020617;
+                --text-main: #e5e7eb;
+                --text-dim: #94a3b8;
+                --glass: rgba(255, 255, 255, 0.05);
+
+                background-image:
+                    radial-gradient(circle at 10% 20%, rgba(30, 64, 175, 0.35), transparent 60%),
+                    radial-gradient(circle at right, rgba(153, 27, 27, 0.35), transparent 65%),
+                    linear-gradient(120deg, #020617 0%, #020617 55%, #1f2933 100%);
+            }
+
     </style>
 </head>
 
@@ -715,6 +777,15 @@
             <button class="hide-panel-btn" onclick="togglePanel()">
                 <span id="hide-icon">▢</span> Menyembunyikan
             </button>
+            <!-- DARK MODE TOGGLE -->
+            <div class="theme-toggle">
+            <input type="checkbox" id="themeToggle">
+            <label for="themeToggle">
+                <span class="sun">☀️</span>
+                <span class="moon">🌙</span>
+                <span class="ball"></span>
+            </label>
+            </div>
     </nav>
 
     <div id="settingsModal" class="modal-overlay" style="display: none;">
@@ -1225,6 +1296,23 @@
 
             ctx.restore();
         }
+
+        // ===== THEME TOGGLE SCRIPT =====
+            const toggle = document.getElementById("themeToggle");
+            const body = document.body;
+
+            // Load saved theme
+            const savedTheme = localStorage.getItem("theme") || "light";
+            body.setAttribute("data-theme", savedTheme);
+            toggle.checked = savedTheme === "dark";
+
+            // Toggle theme
+            toggle.addEventListener("change", () => {
+            const theme = toggle.checked ? "dark" : "light";
+            body.setAttribute("data-theme", theme);
+            localStorage.setItem("theme", theme);
+        });
+
     </script>
     <div id="toast-container"></div>
 </body>
