@@ -90,24 +90,69 @@
             vertical-align: middle;
         }
 
-        /* Gaya Tombol di Navbar */
-        .hide-panel-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-main);
-            border-radius: 4px;
+        /* Tombol Toggle Tab */
+        .panel-toggle-tab {
+            position: absolute;
+            /* Menempel di sisi kiri panel (lebar panel 380px) */
+            right: 305px;
+            /* Posisi di bagian atas */
+            top: 20px;
+
+            width: 30px;
+            height: 50px;
+            background: var(--secondary-bg);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-right: none;
+            border-radius: 10px 0 0 10px;
             cursor: pointer;
+            z-index: 1001;
+            /* Pastikan di atas panel */
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: 0.2s;
-            padding: 8px 15px;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--text-main);
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.05);
         }
 
-        .hide-panel-btn:hover {
-            background: rgba(0, 0, 0, 0.15);
+        .panel-toggle-tab:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* Transisi Panel */
+        .panel {
+            width: 380px;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 1000;
+        }
+
+        /* Class saat panel disembunyikan */
+        .panel-hidden {
+            transform: translateX(100%);
+        }
+
+        /* Saat panel sembunyi, tombol geser ke ujung kanan layar */
+        .panel-hidden+.panel-toggle-tab,
+        .panel-hidden~.panel-toggle-tab {
+            right: 0;
+            border-radius: 10px 0 0 10px;
+            /* Tetap melengkung di kiri */
+        }
+
+        .panel {
+            width: 380px;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            /* ... style panel lainnya ... */
+        }
+
+        @media (max-width: 1100px) {
+            .panel-toggle-tab {
+                display: none;
+            }
+
+            /* Sembunyikan di HP karena layout berbeda */
         }
 
         /* Class untuk menyembunyikan panel */
@@ -124,14 +169,14 @@
             background: transparent;
             border: none;
             color: var(--text-main);
-            padding: 8px 15px;
+            padding: 8px 10px;
             border-radius: 4px;
             font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.9rem;
+            gap: 1px;
+            font-size: 0.85rem;
             transition: 0.2s;
         }
 
@@ -144,20 +189,79 @@
             /* Putih keabu-abuan seperti di gambar */
             border: none;
             color: var(--text-main);
-            padding: 8px 15px;
+            padding: 8px 10px;
             border-radius: 4px;
             /* Sudut agak kotak tapi lembut */
             font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.95rem;
+            gap: 1px;
+            font-size: 0.85rem;
             transition: 0.2s;
         }
 
         .nav-btn-custom:hover {
             background: rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-item-full {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 1px;
+            padding: 8px 10px;
+            border-radius: 4px;
+            transition: 0.2s;
+        }
+
+        .nav-item-full:hover {
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        /* Gaya untuk Menu-menu baru di Navbar */
+        .nav-item {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 1px;
+            padding: 8px 10px;
+            border-radius: 4px;
+            transition: 0.2s;
+        }
+
+        .nav-item:hover {
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-divider {
+            width: 1px;
+            height: 24px;
+            background: var(--text-dim);
+            opacity: 0.3;
+            margin: 0 5px;
+        }
+
+        /* Penyesuaian Mobile agar menu baru tidak berantakan */
+        @media (max-width: 1100px) {
+            .nav-divider {
+                display: none;
+            }
+
+            .navbar-right {
+                gap: 5px;
+                align-items: flex-start;
+            }
         }
 
         /* Penengah Modal */
@@ -172,15 +276,16 @@
         }
 
         .settings-box {
-            background: #181818;
+            background: var(--secondary-bg);
             padding: 40px;
             border-radius: 20px;
+            border: 2px solid var(--accent);
             width: 90%;
             max-width: 600px;
             /* Lebar maksimal box */
             text-align: center;
             /* Menengahkan semua teks */
-            color: white;
+            color: var(--text-main);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
         }
 
@@ -247,7 +352,7 @@
         }
 
         .unit {
-            color: white;
+            color: var(--text-main);
             font-size: 1.2rem;
         }
 
@@ -590,7 +695,7 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 12px;
             border-radius: 10px;
-            color: white;
+            color: var(--text-main);
             font-size: 1rem;
             margin-top: 5px;
         }
@@ -667,7 +772,7 @@
         }
 
         /* ===== RESPONSIVE FIX ===== */
-        @media (max-width: 900px) {
+        @media (max-width: 1100px) {
             body {
                 overflow-y: auto;
                 /* Izinkan scroll di HP */
@@ -704,8 +809,8 @@
                 position: relative;
                 /* Di HP, panel tidak melayang tapi di bawah roda */
                 right: auto;
-                width: 95%;
-                max-width: 500px;
+                width: 100%;
+                max-width: auto;
                 height: auto;
                 max-height: none;
                 margin-top: 30px;
@@ -804,6 +909,14 @@
             background: rgba(255, 255, 255, 0.08);
         }
 
+        body[data-theme="dark"] .nav-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        body[data-theme="dark"] .nav-item-full:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
         body[data-theme="dark"] .navbar {
             background: #212121;
         }
@@ -836,7 +949,7 @@
         }
 
         /* MOBILE */
-        @media (max-width: 768px) {
+        @media (max-width: 1100px) {
 
             /* tampilkan hamburger */
             .hamburger {
@@ -1029,12 +1142,17 @@
         <div class="logo" id="logoSecret"> <img src="./img/logo-dark-background-38.png" alt="">
             WheelofNames.com
         </div>
-        <div class="navbar-right" style="gap: 15px; align-items: center;" id="navMenu">
-            <button class="nav-btn-secondary" onclick="confirmReset()">📄 Baru</button>
+        <div class="navbar-right" style="gap: 5px; align-items: center;" id="navMenu">
             <button class="nav-btn-custom" onclick="toggleSettings()">🎨 Sesuaikan</button>
-            <button class="hide-panel-btn" onclick="togglePanel()">
-                <span id="hide-icon">▢</span> Menyembunyikan
-            </button>
+            <button class="nav-btn-secondary" onclick="confirmReset()">📄 Baru</button>
+            <button class="nav-item">📂 Buka</button>
+            <button class="nav-item">💾 Simpan</button>
+            <button class="nav-item">🔗 Bagikan</button>
+            <button class="nav-item-full"><img width="24" height="24"
+                    src="https://img.icons8.com/material-outlined/24/full-screen--v1.png"
+                    alt="full-screen--v1" /></button>
+            <button class="nav-item">Lainnya ▼</button>
+            <button class="nav-item">🇮🇩 Bahasa</button>
             <!-- DARK MODE TOGGLE -->
             <div class="theme-toggle">
                 <input type="checkbox" id="themeToggle">
@@ -1093,6 +1211,9 @@
             </div>
         </div>
 
+        <button class="panel-toggle-tab" onclick="togglePanel()" id="toggleBtn">
+            <span id="toggle-icon">❯</span>
+        </button>
         <div class="panel">
             <div class="tabs">
                 <button id="tab-entry" class="active" onclick="switchTab('entry')">Entri</button>
@@ -1125,7 +1246,7 @@
 
     <div class="modal" id="editModal">
         <div class="modal-box">
-            <h3 style="margin:0; color:white;">Edit Pengaturan</h3>
+            <h3 style="margin:0; color:var(--text-main);">Edit Pengaturan</h3>
             <div style="display: flex; flex-direction: column; gap: 15px;">
                 <div style="text-align: left;">
                     <label>Judul Roda</label>
@@ -1187,10 +1308,10 @@
         const canvas = document.getElementById("wheel");
         const ctx = canvas.getContext("2d");
         const r = canvas.width / 2;
-        const logo = document.getElementById("logoSecret"); 
+        const logo = document.getElementById("logoSecret");
         const secretModal = document.getElementById("secretModal");
-        const secretToggle = document.getElementById("secretToggle"); 
-        const winnerSettings = document.getElementById("winnerSettings"); 
+        const secretToggle = document.getElementById("secretToggle");
+        const winnerSettings = document.getElementById("winnerSettings");
         const winnerOrderInput = document.getElementById("winnerOrder");
 
         let names = ["Max", "George", "Lando", "Oscar"];
@@ -1201,8 +1322,8 @@
         let idleRotation = 0.004;
         let currentWinner = "";
 
-        let secretMode = false; 
-        let winnerQueue = []; 
+        let secretMode = false;
+        let winnerQueue = [];
         let currentWinnerIndex = 0;
         // Deklarasi Audio
         const drumSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3'); // Suara Ticking/Drum
@@ -1460,19 +1581,27 @@
         animateLoop();
 
         function togglePanel() {
-            const panel = document.querySelector('.panel');
-            const icon = document.getElementById('hide-icon');
+    const panel = document.querySelector('.panel');
+    const icon = document.getElementById('toggle-icon');
+    const btn = document.getElementById('toggleBtn');
 
-            // Toggle class tersembunyi
-            panel.classList.toggle('panel-hidden');
+    panel.classList.toggle('panel-hidden');
 
-            if (panel.classList.contains('panel-hidden')) {
-                icon.innerText = "▣";
-                // Roda tidak akan bergeser karena panel tidak lagi memakan ruang grid
-            } else {
-                icon.innerText = "▢";
-            }
-        }
+    if (panel.classList.contains('panel-hidden')) {
+        // Saat panel tertutup: Ikon hadap kiri, tombol mepet kanan layar
+        icon.innerText = "❮"; 
+        btn.style.right = "0";
+    } else {
+        // Saat panel terbuka: Ikon hadap kanan, tombol di kiri panel (380px)
+        icon.innerText = "❯";
+        btn.style.right = "305px"; 
+    }
+    
+    // Beri sedikit jeda lalu gambar ulang roda agar ukurannya pas dengan sisa layar
+    setTimeout(() => {
+        if(typeof drawWheel === 'function') drawWheel();
+    }, 400);
+}
 
         // Fungsi untuk menyimpan nama ke browser
         function saveToLocalStorage() {
